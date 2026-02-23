@@ -33,3 +33,15 @@
 	--ifm-color-primary-lightest: #4fddbf;
 	--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* ネストされたordered listをlower-alphaにする */
+article ol ol {
+	list-style-type: lower-alpha;
+}
+
+/* KaTeX内の日本語テキストに本文と同じフォントをフォールバック指定 */
+.katex .cjk_fallback {
+	font-family: KaTeX_Main, system-ui, -apple-system, BlinkMacSystemFont,
+		"Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+	font-size: 0.826em;
+}
