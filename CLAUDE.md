@@ -25,3 +25,16 @@ Personal notes site built with Docusaurus 3.9, using bun as the package manager.
 - Notes use LaTeX math via `$...$` (inline) and `$$...$$` (display) syntax, processed by remark-math/rehype-katex.
 - Content is written in Japanese.
 - Each doc directory uses `_category_.json` for sidebar ordering/labels and individual docs use `sidebar_position` frontmatter.
+
+### 証明の記述ルール
+
+- 証明は番号つきリスト（ordered list）で各ステップを記述し、参照しやすくする
+- 部分証明（例: 包含関係の各方向）はネストしたリストで構成する
+- 各証明・部分証明の冒頭で、示したい命題・方針を明示してから証明を始める
+  - 例: 「$L(\mathcal{M'}) = L(\mathcal{M})$ を示す」→「$\subset$ の証明」「$\supset$ の証明」
+- できるだけ形式的に書く。自然演繹を自然言語で表現するイメージだが、可読性とのバランスを取る
+  - 「任意にとる」「仮定より」「定義より」「よって」などの論理的接続を明示
+  - 各ステップが前のステップからどう導かれるかを示す
+- 集合の等式 $A = B$ は $A \subset B$ と $B \subset A$ の両方向を示すか、同値変形の連鎖など、よりエレガントな方法があればそちらを使う
+- $\exists, \forall$ などの論理記号は使わない。「どんな...に対しても」「ある...が存在して」など自然言語で書く（論理記号は対象言語の記号であるため）
+- 「任意の」は普遍汎化の手続き上の「任意にとる」「任意に定める」という用法に限定し、全称量化の意味では「どんな...に対しても」を使う

@@ -249,7 +249,42 @@ $\mathcal{M} = (\{q_0, q_1, q_2\},\; \{0, 1\},\; \delta,\; q_0,\; \{q_0, q_2\})$
 
 $L$ を受理するオートマトンを $\mathcal{M} = (Q, \Omega, \delta, q_0, F)$ とする。
 
-非決定性オートマトン $\mathcal{M}' = (Q, \Omega, \delta', F, \{q_0\})$ を以下のように定義すると、これは $L^R$ を受理する
+非決定性オートマトン $\mathcal{M}' = (Q, \Omega, \delta', F, \{q_0\})$ を以下のように定義する
 
 - 初期状態を $F$, 終了状態を $\{q_0\}$ とする
 - $\delta'(q, a) = \{p \in Q : \delta(p, a) = q\}$（元の遷移を逆向きにする）
+
+### 補題
+
+> どんな $p, q \in Q, w \in \Omega^*$ に対しても、$p \in \bar{\delta'}(\{q\}, w) \iff \bar{\delta}(p, w^R) = q$
+
+$|w|$ に関する帰納法で示す
+
+1. $w = \varepsilon$ の場合
+    1. $p \in \bar{\delta'}(\{q\}, \varepsilon) = \{q\}$ より $p = q$
+    2. $\bar{\delta}(p, \varepsilon^R) = \bar{\delta}(p, \varepsilon) = p$
+    3. a, b より $p \in \bar{\delta'}(\{q\}, \varepsilon) \iff p = q \iff \bar{\delta}(p, \varepsilon^R) = q$
+2. $w = ua$（$u \in \Omega^*, a \in \Omega$）の場合、$|u|$ について帰納法の仮定が成り立つとする
+    1. $w^R = au^R$ に注意する
+    2. $p \in \bar{\delta'}(\{q\}, ua) \iff$ ある $r \in \bar{\delta'}(\{q\}, u)$ が存在して $p \in \delta'(r, a)$
+    3. $\delta'$ の定義より $p \in \delta'(r, a) \iff \delta(p, a) = r$
+    4. b, c より $p \in \bar{\delta'}(\{q\}, ua) \iff$ ある $r \in \bar{\delta'}(\{q\}, u)$ が存在して $\delta(p, a) = r$
+    5. 帰納法の仮定より $r \in \bar{\delta'}(\{q\}, u) \iff \bar{\delta}(r, u^R) = q$
+    6. d, e より $p \in \bar{\delta'}(\{q\}, ua) \iff \bar{\delta}(\delta(p, a), u^R) = q$
+    7. $\bar{\delta}(\delta(p, a), u^R) = \bar{\delta}(p, au^R) = \bar{\delta}(p, w^R)$
+    8. f, g より $p \in \bar{\delta'}(\{q\}, w) \iff \bar{\delta}(p, w^R) = q$
+
+### 証明
+
+以下の同値変形により $L(\mathcal{M}') = L^R$ が成り立つ
+
+$$
+\begin{aligned}
+w \in L(\mathcal{M}') &\iff q_0 \in \bar{\delta'}(F, w) \\
+&\iff \text{ある } f \in F \text{ が存在して } q_0 \in \bar{\delta'}(\{f\}, w) \\
+&\iff \text{ある } f \in F \text{ が存在して } \bar{\delta}(q_0, w^R) = f \quad \text{(補題より)} \\
+&\iff \bar{\delta}(q_0, w^R) \in F \\
+&\iff w^R \in L \\
+&\iff w \in L^R
+\end{aligned}
+$$
