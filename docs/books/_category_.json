@@ -1,8 +1,8 @@
 {
-  "label": "読書ノート",
-  "position": 2,
-  "link": {
-    "type": "generated-index",
-    "slug": "books"
-  }
+	"label": "読書ノート",
+	"position": 2,
+	"link": {
+		"type": "generated-index",
+		"slug": "books"
+	}
 }
