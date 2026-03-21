@@ -56,6 +56,10 @@ const config: Config = {
 					routeBasePath: "/",
 					remarkPlugins: [remarkMath],
 					rehypePlugins: [rehypeKatex],
+					admonitions: {
+						keywords: ["definition"],
+						extendDefaults: true,
+					},
 				},
 				blog: false,
 				theme: {
