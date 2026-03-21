@@ -68,6 +68,11 @@ const config: Config = {
 	stylesheets: [],
 
 	themeConfig: {
+		docs: {
+			sidebar: {
+				hideable: true,
+			},
+		},
 		colorMode: {
 			respectPrefersColorScheme: true,
 		},
