@@ -1,5 +1,5 @@
 {
-	"label": "読書ノート",
+	"label": "books",
 	"position": 2,
 	"link": {
 		"type": "generated-index",
