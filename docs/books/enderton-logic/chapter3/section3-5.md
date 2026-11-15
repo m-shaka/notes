@@ -178,19 +178,15 @@ $Q$ が再帰的枚挙可能な単項関係の場合を示す（多項の場合�
 
 自然数上の関係 $Q$ のクラス $\Sigma_k, \Pi_k$ を次のように定める。
 
-- $Q \in \Sigma_k \iff$ 再帰的な関係 $R$ が存在して、
-  $$Q = \{\vec{a} \mid \langle \vec{a}, b_1, b_2, \dots, b_k \rangle \in R \text{ を満たす } b_1, b_2, \dots, b_k \text{ が存在する（量化子は } \exists\forall\exists\forall\cdots \text{ の順）}\}$$
-  と書ける
-- $Q \in \Pi_k \iff$ 再帰的な関係 $R$ が存在して、
-  $$Q = \{\vec{a} \mid \langle \vec{a}, b_1, b_2, \dots, b_k \rangle \in R \text{ となる（量化子は } \forall\exists\forall\exists\cdots \text{ の順）}\}$$
-  と書ける
+- $Q \in \Sigma_k \iff$ 次を満たすような再帰的な関係 $R$ が存在する：どんな $\vec{a}$ に対しても、$\vec{a} \in Q$ であることと、$\langle \vec{a}, b_1, b_2, \dots, b_k \rangle \in R$ に $b_1$ から順に「…を満たす $b_i$ が存在する」「どんな $b_i$ に対しても」を交互に施した条件（存在から始まる）とが同値
+- $Q \in \Pi_k \iff$ 次を満たすような再帰的な関係 $R$ が存在する：どんな $\vec{a}$ に対しても、$\vec{a} \in Q$ であることと、$\langle \vec{a}, b_1, b_2, \dots, b_k \rangle \in R$ に $b_1$ から順に「どんな $b_i$ に対しても」「…を満たす $b_i$ が存在する」を交互に施した条件（全称から始まる）とが同値
 
 最初の数個を具体的に書くと
 
 - $\Sigma_1 = \{\{\vec{a} \mid \langle \vec{a}, b \rangle \in R \text{ を満たす } b \text{ が存在する}\} \mid R \text{ は再帰的}\}$（= 再帰的枚挙可能な関係のクラス）
 - $\Pi_1 = \{\{\vec{a} \mid \text{どんな } b \text{ に対しても } \langle \vec{a}, b \rangle \in R\} \mid R \text{ は再帰的}\}$
-- $\Sigma_2 = \{\{\vec{a} \mid \text{ある } c \text{ が存在して、どんな } b \text{ に対しても } \langle \vec{a}, b, c \rangle \in R\} \mid R \text{ は再帰的}\}$
-- $\Pi_2 = \{\{\vec{a} \mid \text{どんな } c \text{ に対しても、ある } b \text{ が存在して } \langle \vec{a}, b, c \rangle \in R\} \mid R \text{ は再帰的}\}$
+- $\Sigma_2 = \{\{\vec{a} \mid \text{どんな } b \text{ に対しても } \langle \vec{a}, b, c \rangle \in R \text{ となるような } c \text{ が存在する}\} \mid R \text{ は再帰的}\}$
+- $\Pi_2 = \{\{\vec{a} \mid \text{どんな } c \text{ に対しても、} \langle \vec{a}, b, c \rangle \in R \text{ を満たす } b \text{ が存在する}\} \mid R \text{ は再帰的}\}$
 
 :::
 
@@ -220,9 +216,9 @@ Theorem 35F「関係が再帰的であることとそれ自身と補集合がと
 
 1. $a$ がこの集合に属する条件を書き下すと
    - $a$ は論理式のゲーデル数であり、かつ
-   - どんな $b$ に対しても、ある $d$ が存在して、$d$ は $A_E$ からの $\alpha(S^{(b)_0}0, S^{(b)_1}0, \dots)$ の演繹のゲーデル数か、またはその否定の演繹のゲーデル数
+   - どんな $b$ に対しても、「$A_E$ からの $\alpha(S^{(b)_0}0, S^{(b)_1}0, \dots)$ の演繹のゲーデル数か、またはその否定の演繹のゲーデル数である」を満たすような $d$ が存在する
 2. 角括弧内の部分は Section 3.4 の手法により再帰的関係を定める
-3. 量化子を外に出せば $\{a \mid \text{どんな } b \text{ に対しても、ある } d \text{ が存在して } \langle a, b, d \rangle \in R\}$ の形になり、$R$ は再帰的
+3. 量化子を外に出せば $\{a \mid \text{どんな } b \text{ に対しても、} \langle a, b, d \rangle \in R \text{ を満たす } d \text{ が存在する}\}$ の形になり、$R$ は再帰的
 4. よって $\Pi_2$ に属する
 
 ### 階層の包含関係
@@ -240,12 +236,12 @@ $$\Sigma_k \subset \Sigma_{k+1}, \quad \Sigma_k \subset \Pi_{k+1}, \quad \Pi_k \
 
 ### Theorem 35K（算術的関係と階層の関係）
 
-> 自然数上の関係 $R$ が算術的（すなわち $\mathfrak{N}$ で定義可能）であることは、ある $k$ について $R \in \Sigma_k$ であることと同値であり、またある $l$ について $R \in \Pi_l$ であることとも同値である
+> 自然数上の関係 $R$ が算術的（すなわち $\mathfrak{N}$ で定義可能）であることは、$R \in \Sigma_k$ を満たすような $k$ が存在することと同値であり、また $R \in \Pi_l$ を満たすような $l$ が存在することとも同値である
 
 #### 階層の各クラスに属する関係は算術的
 
 1. 例として $\Sigma_2$ の関係 $Q$ をとる
-2. 定義より $Q$ はある再帰的関係 $R$ を用いて $\{\vec{a} \mid \text{ある } c \text{ について、どんな } b \text{ に対しても } \langle \vec{a}, b, c \rangle \in R\}$ と書ける
+2. 定義より、$Q = \{\vec{a} \mid \text{どんな } b \text{ に対しても } \langle \vec{a}, b, c \rangle \in R \text{ となるような } c \text{ が存在する}\}$ を満たすような再帰的関係 $R$ が存在する
 3. $R$ は再帰的なので $\mathrm{Cn}\,A_E$ で表現可能、従って $\mathfrak{N}$ で論理式 $\varphi(\vec{v}, v_b, v_c)$ により定義される
 4. $\exists v_c\, \forall v_b\, \varphi(\vec{v}, v_b, v_c)$ は $\mathfrak{N}$ で $Q$ を定義する
 5. 一般の $\Sigma_k, \Pi_k$ も同様
@@ -262,8 +258,7 @@ $$\Sigma_k \subset \Sigma_{k+1}, \quad \Sigma_k \subset \Pi_{k+1}, \quad \Pi_k \
 
 階層内の具体的な関係の位置を同定するときに有用なテクニックとして、**有界量化子 (bounded quantifier)** は量化子の数にカウントしなくてよい、という事実がある。
 
-- 「$n$ 未満のどんな $i$ に対しても、$\langle d, i \rangle \in P$ を満たすような $d$ が存在する」という条件は、$\langle (d)_i, i \rangle \in P$ を満たすような $d$ が存在する形に書き換えられる
-  $$(\forall i < n)(\exists d)\, \langle d, i \rangle \in P \iff (\exists d)(\forall i < n)\, \langle (d)_i, i \rangle \in P$$
+- 「$n$ 未満のどんな $i$ に対しても、$\langle d, i \rangle \in P$ を満たすような $d$ が存在する」という条件は、「$n$ 未満のどんな $i$ に対しても $\langle (d)_i, i \rangle \in P$ となるような $d$ が存在する」という条件と同値である（各 $i$ に対する証人を列 $d$ にまとめ、$(d)_i$ で取り出す）
 - これにより有界量化子を内側に押し込んで再帰的な部分に吸収でき、見かけ上の量化子の数を減らせる
 
 ### Theorem 35L（Theorem 35I の一般化）
@@ -272,7 +267,7 @@ $$\Sigma_k \subset \Sigma_{k+1}, \quad \Sigma_k \subset \Pi_{k+1}, \quad \Pi_k \
 
 1. Theorem 35I の証明と同様に、Section 3.4 item 18, 20 より
    $$a \in \#\mathrm{Cn}\,A \iff a \text{ は文のゲーデル数であり、} d \text{ が列数で、} d \text{ の最終成分が } a \text{ であり、各 } i < \mathrm{lh}(d) \text{ について } (d)_i \text{ は (1) } A \text{ の要素、(2) 論理的公理のゲーデル数、(3) MP で先行する成分から導かれる、のいずれか、を満たすような } d \text{ が存在する}$$
-2. $\#A \in \Sigma_k$ なので「$(d)_i \in \#A$」の部分は $\exists b_1 \forall b_2 \cdots Q b_k\, \langle (d)_i, \vec{b} \rangle \in Q$（$Q$ は再帰的）の形に置き換えられる
+2. $\#A \in \Sigma_k$ なので「$(d)_i \in \#A$」の部分は、再帰的関係 $Q$ を用いて、$\langle (d)_i, b_1, \dots, b_k \rangle \in Q$ に「…を満たす $b_1$ が存在する」「どんな $b_2$ に対しても」…を交互に施した形に置き換えられる
 3. 全体を前提標準形に整形し、有界量化子のトリックと量化子の潰し込みを併用して $\Sigma_k$ の形にまとめる
 4. よって $\#\mathrm{Cn}\,A \in \Sigma_k$
 
