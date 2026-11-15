@@ -163,3 +163,121 @@ $Q$ が再帰的枚挙可能な単項関係の場合を示す（多項の場合�
      2. 「$d$ が $A_E$ からの演繹のゲーデル数で、その最終成分が与えられた値に等しい」という関係は再帰的（Section 3.4 item 18、および数列の最終成分を取り出す関数の再帰性）
    - 1 で計算した値と 2 の最終成分が等しいかの判定は、二つの再帰的関数の値の等号判定なので再帰的関係。よって $R$ は再帰的
 5. よって $Q$ は再帰的枚挙可能
+
+## 算術的階層 (Arithmetical Hierarchy)
+
+:::definition[算術的関係 (Arithmetical Relation)]
+
+自然数上の関係 $R$ が**算術的 (arithmetical)** であるとは、$R$ が標準構造 $\mathfrak{N}$ で定義可能であることをいう。
+
+:::
+
+算術的関係は「どの程度定義可能か」に応じて階層に分類できる。基本となるアイデアは「$n$ 個の量化子を使えば再帰的関係から作れる」という深さで関係を測ることである。
+
+:::definition[$\Sigma_k, \Pi_k$ クラス]
+
+自然数上の関係 $Q$ のクラス $\Sigma_k, \Pi_k$ を次のように定める。
+
+- $Q \in \Sigma_k \iff$ 再帰的な関係 $R$ が存在して、
+  $$Q = \{\vec{a} \mid \langle \vec{a}, b_1, b_2, \dots, b_k \rangle \in R \text{ を満たす } b_1, b_2, \dots, b_k \text{ が存在する（量化子は } \exists\forall\exists\forall\cdots \text{ の順）}\}$$
+  と書ける
+- $Q \in \Pi_k \iff$ 再帰的な関係 $R$ が存在して、
+  $$Q = \{\vec{a} \mid \langle \vec{a}, b_1, b_2, \dots, b_k \rangle \in R \text{ となる（量化子は } \forall\exists\forall\exists\cdots \text{ の順）}\}$$
+  と書ける
+
+最初の数個を具体的に書くと
+
+- $\Sigma_1 = \{\{\vec{a} \mid \langle \vec{a}, b \rangle \in R \text{ を満たす } b \text{ が存在する}\} \mid R \text{ は再帰的}\}$（= 再帰的枚挙可能な関係のクラス）
+- $\Pi_1 = \{\{\vec{a} \mid \text{どんな } b \text{ に対しても } \langle \vec{a}, b \rangle \in R\} \mid R \text{ は再帰的}\}$
+- $\Sigma_2 = \{\{\vec{a} \mid \text{ある } c \text{ が存在して、どんな } b \text{ に対しても } \langle \vec{a}, b, c \rangle \in R\} \mid R \text{ は再帰的}\}$
+- $\Pi_2 = \{\{\vec{a} \mid \text{どんな } c \text{ に対しても、ある } b \text{ が存在して } \langle \vec{a}, b, c \rangle \in R\} \mid R \text{ は再帰的}\}$
+
+:::
+
+:::note[$k$ に関する再帰的定義]
+
+上の定義は $k$ に関する再帰でも書ける。
+
+- $\Sigma_1 =$ 再帰的枚挙可能な関係のクラス
+- $\Pi_k = \{\bar{Q} \mid Q \in \Sigma_k\}$（補集合をとったもの）
+- $\Sigma_{k+1} = \{Q \text{ の定義域} \mid Q \in \Pi_k\}$
+
+$k = 0$ から始めて $\Sigma_0 = \Pi_0 = $ 再帰的関係のクラスとしてもよい。
+
+:::
+
+:::definition[$\Delta_k$ クラス]
+
+$$\Delta_k = \Sigma_k \cap \Pi_k$$
+
+Theorem 35F「関係が再帰的であることとそれ自身と補集合がともに再帰的枚挙可能であることは同値」は $\Delta_1 = $ 再帰的関係のクラス、という形で言い換えられる。
+
+:::
+
+### 例：$A_E$ で numeralwise determined な論理式のゲーデル数の集合は $\Pi_2$ に属する
+
+> 論理式 $\alpha$ が $A_E$ で **numeralwise determined** であるとは、どんな自然数 $b_0, b_1, \dots$ に対しても $A_E \vdash \alpha(S^{b_0}0, S^{b_1}0, \dots)$ かまたは $A_E \vdash \lnot\alpha(S^{b_0}0, S^{b_1}0, \dots)$ が成り立つことをいう
+
+1. $a$ がこの集合に属する条件を書き下すと
+   - $a$ は論理式のゲーデル数であり、かつ
+   - どんな $b$ に対しても、ある $d$ が存在して、$d$ は $A_E$ からの $\alpha(S^{(b)_0}0, S^{(b)_1}0, \dots)$ の演繹のゲーデル数か、またはその否定の演繹のゲーデル数
+2. 角括弧内の部分は Section 3.4 の手法により再帰的関係を定める
+3. 量化子を外に出せば $\{a \mid \text{どんな } b \text{ に対しても、ある } d \text{ が存在して } \langle a, b, d \rangle \in R\}$ の形になり、$R$ は再帰的
+4. よって $\Pi_2$ に属する
+
+### 階層の包含関係
+
+次の包含関係が成り立つ。
+
+$$\Sigma_k \subset \Sigma_{k+1}, \quad \Sigma_k \subset \Pi_{k+1}, \quad \Pi_k \subset \Sigma_{k+1}, \quad \Pi_k \subset \Pi_{k+1}$$
+
+また $\Delta_{k+1} = \Sigma_{k+1} \cap \Pi_{k+1}$ は $\Sigma_k \cup \Pi_k$ を含む。
+
+1. 基本アイデアは「空な量化 (vacuous quantification)」。論理式 $\varphi$ に変数 $x$ が自由に現れなければ、$\varphi$, $\forall x\, \varphi$, $\exists x\, \varphi$ はすべて同値
+2. 例えば $\Sigma_1$ の関係は $\exists y\, \varphi$（$\varphi$ は numeralwise determined）の形で定義されるが、$x$ を $\varphi$ に出現しない新しい変数として取れば、$\exists y\, \forall x\, \varphi$ や $\forall x\, \exists y\, \varphi$ でも同じ関係が定義される。よってこの関係は $\Sigma_2$ にも $\Pi_2$ にも属する
+
+なお、これらの包含はすべて**真の**包含（等号が成立しない）であることが知られているが、本節ではその証明は与えない。
+
+### Theorem 35K（算術的関係と階層の関係）
+
+> 自然数上の関係 $R$ が算術的（すなわち $\mathfrak{N}$ で定義可能）であることは、ある $k$ について $R \in \Sigma_k$ であることと同値であり、またある $l$ について $R \in \Pi_l$ であることとも同値である
+
+#### 階層の各クラスに属する関係は算術的
+
+1. 例として $\Sigma_2$ の関係 $Q$ をとる
+2. 定義より $Q$ はある再帰的関係 $R$ を用いて $\{\vec{a} \mid \text{ある } c \text{ について、どんな } b \text{ に対しても } \langle \vec{a}, b, c \rangle \in R\}$ と書ける
+3. $R$ は再帰的なので $\mathrm{Cn}\,A_E$ で表現可能、従って $\mathfrak{N}$ で論理式 $\varphi(\vec{v}, v_b, v_c)$ により定義される
+4. $\exists v_c\, \forall v_b\, \varphi(\vec{v}, v_b, v_c)$ は $\mathfrak{N}$ で $Q$ を定義する
+5. 一般の $\Sigma_k, \Pi_k$ も同様
+
+#### 算術的関係は階層のどこかに属する
+
+1. 算術的関係 $R$ をとる。$R$ は $\mathfrak{N}$ で論理式 $\psi$ により定義される
+2. $\psi$ を前提標準形（prenex form）に変形する。すなわち $Q_1 x_1\, Q_2 x_2\, \cdots Q_m x_m\, \theta$ の形（$\theta$ は量化子を含まない）
+3. 量化子を含まない論理式は $A_E$ で numeralwise determined であり、その定義する関係は再帰的
+4. 同じ種類の量化子が連続している場合は、Theorem 35E の証明で使った「数列の復号関数による量化子の潰し込み」（およびその双対）で 1 つの量化子にまとめられる
+5. よって $\Sigma_k$ か $\Pi_k$ の形に整形でき、階層のどこかに属する
+
+### 有界量化子のトリック
+
+階層内の具体的な関係の位置を同定するときに有用なテクニックとして、**有界量化子 (bounded quantifier)** は量化子の数にカウントしなくてよい、という事実がある。
+
+- 「$n$ 未満のどんな $i$ に対しても、$\langle d, i \rangle \in P$ を満たすような $d$ が存在する」という条件は、$\langle (d)_i, i \rangle \in P$ を満たすような $d$ が存在する形に書き換えられる
+  $$(\forall i < n)(\exists d)\, \langle d, i \rangle \in P \iff (\exists d)(\forall i < n)\, \langle (d)_i, i \rangle \in P$$
+- これにより有界量化子を内側に押し込んで再帰的な部分に吸収でき、見かけ上の量化子の数を減らせる
+
+### Theorem 35L（Theorem 35I の一般化）
+
+> $A$ が文の集合で $\#A \in \Sigma_k$（$k > 0$）ならば、$\#\mathrm{Cn}\,A$ も $\Sigma_k$ に属する
+
+1. Theorem 35I の証明と同様に、Section 3.4 item 18, 20 より
+   $$a \in \#\mathrm{Cn}\,A \iff a \text{ は文のゲーデル数であり、} d \text{ が列数で、} d \text{ の最終成分が } a \text{ であり、各 } i < \mathrm{lh}(d) \text{ について } (d)_i \text{ は (1) } A \text{ の要素、(2) 論理的公理のゲーデル数、(3) MP で先行する成分から導かれる、のいずれか、を満たすような } d \text{ が存在する}$$
+2. $\#A \in \Sigma_k$ なので「$(d)_i \in \#A$」の部分は $\exists b_1 \forall b_2 \cdots Q b_k\, \langle (d)_i, \vec{b} \rangle \in Q$（$Q$ は再帰的）の形に置き換えられる
+3. 全体を前提標準形に整形し、有界量化子のトリックと量化子の潰し込みを併用して $\Sigma_k$ の形にまとめる
+4. よって $\#\mathrm{Cn}\,A \in \Sigma_k$
+
+:::note[Theorem 35I との関係]
+
+Theorem 35I は「$\#A$ が再帰的ならば $\#\mathrm{Cn}\,A$ は再帰的枚挙可能」という主張だった。$\Delta_1 = $ 再帰的なので $\#A \in \Delta_1 \subset \Sigma_1$ であり、Theorem 35L を $k = 1$ に適用すると $\#\mathrm{Cn}\,A \in \Sigma_1 = $ 再帰的枚挙可能が得られる。
+
+:::
