@@ -63,13 +63,13 @@ $\pi$ の割り当てから $\alpha^\pi$ を組み立てる構文上の規則は
 
 $0$ を空集合で表し、後続数を $n\cup\{n\}$ で表す。すると $1=\{0\}$、$2=\{0,1\}$、$3=\{0,1,2\}$ となる。これらの自然数を集めた集合を $\omega$ とする。
 
-| 算術での役割 | 集合論の式 | 式が表す条件 |
-| --- | --- | --- |
-| 量化の範囲 | $\pi_\forall(x)$ | $x\in\omega$ |
-| 定数 $0$ | $\pi_0(e)$ | $e=\varnothing$ |
-| 後続関数 $S$ | $\pi_S(x,y)$ | $y=x\cup\{x\}$ |
-| 順序 $<$ | $\pi_<(x,y)$ | $x\in y$ |
-| 加法 $+$ | $\pi_+(a,b,c)$ | $a,b$ の和は $c$ |
+| 算術での役割 | 集合論の式       | 式が表す条件     |
+| ------------ | ---------------- | ---------------- |
+| 量化の範囲   | $\pi_\forall(x)$ | $x\in\omega$     |
+| 定数 $0$     | $\pi_0(e)$       | $e=\varnothing$  |
+| 後続関数 $S$ | $\pi_S(x,y)$     | $y=x\cup\{x\}$   |
+| 順序 $<$     | $\pi_<(x,y)$     | $x\in y$         |
+| 加法 $+$     | $\pi_+(a,b,c)$   | $a,b$ の和は $c$ |
 
 関数記号の翻訳では、入力に加えて**値の候補**を変数にする。$0$ は入力が0個の定数なので、$\pi_0(e)$ の自由変数は値の候補 $e$ の一つだけである。$S$ では入力 $x$ と値の候補 $y$ の二つになる。
 
@@ -133,23 +133,119 @@ $$
 
 ### 定理37D（集合論の強い決定不能性）
 
-集合論の言語の理論 $T$ について、$T\cup\mathrm{ST}$ が無矛盾なら、または少なくとも $T\cup\Phi$ が無矛盾なら、$T$ の文のゲーデル数の集合 $\sharp T$ は再帰的でない。
+> 集合論の言語の理論 $T$ について、$T\cup\mathrm{ST}$ が無矛盾なら、または少なくとも $T\cup\Phi$ が無矛盾なら、$T$ の文のゲーデル数の集合 $\sharp T$ は再帰的でない。
 
 **算術の理論 $\Delta_0$ から $T$ への帰着を作り、$\sharp T$ が再帰的でないことを示す。**
 
-1. $\Delta=\mathrm{Cn}(T\cup\Phi)$、$\Delta_0=\pi^{-1}[\Delta]$ とおく。仮定より $\Delta$ は無矛盾なのでモデルを持つ。$\Delta_0$ は、$\Delta$ のモデルから取り出した算術の構造すべてで真な文の理論である。よって $\Delta_0$ は無矛盾で、$\Phi$ の選び方から $A_E$ を含む。定理35Cにより $\sharp \Delta_0$ は再帰的でない。
-2. $\Delta_0$ の定義より、算術の文 $\sigma$ について $\sigma\in\Delta_0$ と $\sigma^\pi\in\Delta$ は同値である。補題37Eによれば、$\sharp \sigma$ から $\sharp (\sigma^\pi)$ を求める関数は再帰的なので、$\sharp \Delta_0\le_m\sharp \Delta$ である。
-3. $\varphi$ を $\Phi$ の全要素の連言とする。演繹定理より、集合論の文 $\tau$ について $\tau\in\Delta$ と $(\varphi\to\tau)\in T$ は同値である。$\Phi$ が有限なので、一つの前件 $\varphi$ にまとめられる。$\sharp \tau$ から $\sharp (\varphi\to\tau)$ を求める関数は再帰的なので、$\sharp \Delta\le_m\sharp T$ である。
-4. よって $\sharp T$ が再帰的なら $\sharp \Delta$ も $\sharp \Delta_0$ も再帰的となり、1 と矛盾する。
+1. **無矛盾な算術の理論 $\Delta_0$ を作る。** $\Delta=\mathrm{Cn}(T\cup\Phi)$、$\Delta_0=\pi^{-1}[\Delta]$ とおく。仮定より $T\cup\Phi$ は無矛盾なのでモデル $\mathcal B$ を持ち、$\mathcal B$ はその帰結全体 $\Delta$ も満たす。$\mathrm{Cn}\,\Phi\subseteq\Delta$ より、$\pi$ で算術の構造 $\pi\mathcal B$ を作れる。これは $\Delta_0$ のモデルなので、$\Delta_0$ も無矛盾である。
+2. **定理35Cを適用する。** どんな公理 $\alpha\in A_E$ に対しても、$\Phi$ の選び方から $\alpha^\pi\in\mathrm{Cn}\,\Phi\subseteq\Delta$ である。系27Cより $\alpha\in\Delta_0$ なので、$A_E\subseteq\Delta_0$ である。よって定理35Cより、$\sharp\Delta_0$ は再帰的でない。
+3. **$\sharp\Delta_0\le_m\sharp\Delta$ を示す。** 系27Cより、算術の文 $\sigma$ について
+   $$
+   \sigma\in\Delta_0\quad\Longleftrightarrow\quad\sigma^\pi\in\Delta
+   $$
+   が成り立つ。補題37Eより $\sharp\sigma$ から $\sharp(\sigma^\pi)$ を再帰的に計算できるので、この帰着が得られる。したがって、$\sharp\Delta$ を判定できれば $\sharp\Delta_0$ も判定できてしまう。2 より、$\sharp\Delta$ は再帰的でない。
+4. **$\sharp\Delta\le_m\sharp T$ を示す。** $\varphi$ を有限集合 $\Phi$ の全要素の連言とする。集合論の文 $\tau$ について、演繹定理より
+   $$
+   \tau\in\Delta
+   \quad\Longleftrightarrow\quad
+   T\vdash(\varphi\to\tau)
+   \quad\Longleftrightarrow\quad
+   (\varphi\to\tau)\in T
+   $$
+   が成り立つ。最後の同値には $T$ が理論であることを使う。固定された $\varphi$ を使って $\sharp\tau$ から $\sharp(\varphi\to\tau)$ を再帰的に計算できるので、この帰着が得られる。
+5. **$\sharp T$ が再帰的でないことを結論する。** 仮に $\sharp T$ が再帰的なら、4 の帰着により $\sharp\Delta$ も再帰的となり、3 と矛盾する。
 
-### 系37F・37G
+<details>
+<summary>帰着関数への入力が文のゲーデル数でない場合</summary>
 
-**系37F。** 集合論の公理が判定可能で、$\mathrm{ST}$ が無矛盾なら、$\mathrm{ST}$ は不完全である。
+文のゲーデル数かどうかは再帰的に判定できる。それ以外の入力を、帰着先の理論に属さない文のゲーデル数に送れば、上の変換を自然数全体に拡張できる。$\Delta$ と $T$ は無矛盾なので、どちらの帰着でも $\lnot\forall x(x=x)$ のゲーデル数を使える。
+
+</details>
+
+### 系37F
+
+> 集合論の公理が判定可能で、$\mathrm{ST}$ が無矛盾なら、$\mathrm{ST}$ は不完全である。
 
 1. 定理37Dを $T=\mathrm{ST}$ に適用すると、$\mathrm{ST}$ は決定不能である。
 2. $\mathrm{ST}$ が完全だと仮定する。どんな文 $\tau$ に対しても、$\tau$ と $\lnot\tau$ の証明を並行して探せば、完全性により少なくとも一方が見つかり、無矛盾性により両方は見つからない。
 3. よって $\tau$ が $\mathrm{ST}$ に属するか判定でき、1 と矛盾する。
 
-**系37G。** 等号と二項述語一つを持つ言語で、妥当な文全体は決定不能である。$T=\mathrm{Cn}(\varnothing)$ とすれば、$T$ は妥当な文全体なので、無矛盾な $\Phi$ を使って定理37Dを適用できる。本文は無矛盾性を証明できるような $\Phi$ の具体的な構成を省略しており、この箇所を部分証明としている。
+### 系37G
+
+> 等号と二項述語一つを持つ言語で、妥当な文全体は決定不能である。
+
+$T=\mathrm{Cn}(\varnothing)$ とすれば、$T$ は妥当な文全体なので、無矛盾な $\Phi$ を使って定理37Dを適用できる。本文は無矛盾性を証明できるような $\Phi$ の具体的な構成を省略しており、この箇所を部分証明としている。
 
 最後に、$\mathrm{ST}$ が無矛盾なら、この $\pi$ は標準自然数で真な文全体 $\mathrm{Th}\,\mathfrak{N}$ の翻訳にはならない。$\pi^{-1}[\mathrm{ST}]$ は計算可能な翻訳と $\mathrm{ST}$ の証明探索を使って枚挙できる。もし完全な $\mathrm{Th}\,\mathfrak{N}$ を含めば、無矛盾性により両者は一致するが、Section 3.5 により $\mathrm{Th}\,\mathfrak{N}$ は計算可能に枚挙できない。
+
+## Gödel’s Second Incompleteness Theorem for Set Theory
+
+算術の文 $\sigma$ で、その翻訳 $\sigma^\pi$ が「$\sigma^\pi$ の $\mathrm{ST}$ における証明は存在しない」と述べるようにする。まず $\mathrm{ST}$ が無矛盾なら $\sigma^\pi$ を証明できないことを示し、次にその議論を $\mathrm{ST}$ の内部で形式化して、第二不完全性定理を得る。
+
+### 証明の符号化と自己言及
+
+:::definition[証明を表す関係 $D$]
+
+自然数上の三項関係 $D$ を、次の条件で定める。
+
+$$
+\langle a,b,c\rangle\in D
+\quad\Longleftrightarrow\quad
+\begin{gathered}
+a\text{ は算術の論理式 }\alpha(v_1)\text{ のゲーデル数であり、}\\
+c\text{ は }\mathrm{ST}\text{ の公理から }(\alpha(S^b0))^\pi
+\text{ を導く証明のゲーデル数である。}
+\end{gathered}
+$$
+
+:::
+
+$a$ で式を指定し、その自由変数に $b$ の数詞を代入してから $\pi$ で翻訳する。$c$ は、その翻訳された文の証明を指定する。式への代入と翻訳は再帰的に実行でき、$\mathrm{ST}$ の公理は再帰的なので証明候補も検査できる。したがって $D$ は再帰的であり、$\mathrm{Cn}\,A_E$ で $D$ を表現する式 $\delta(v_1,v_2,v_3)$ が存在する。
+
+次の式のゲーデル数を $r$ とし、その自由変数 $v_1$ に $r$ の数詞 $S^r0$ を代入した文を $\sigma$ とする。
+
+$$
+\begin{aligned}
+r&=\sharp\bigl(\forall v_3\,\lnot\delta(v_1,v_1,v_3)\bigr),\\
+\sigma&=\forall v_3\,\lnot\delta(S^r0,S^r0,v_3).
+\end{aligned}
+$$
+
+$D$ の第1引数に $r$ を入れると、代入される側の式が指定される。第2引数にも $r$ を入れると、その式から $\sigma$ が得られる。したがって $\langle r,r,c\rangle\in D$ は「$c$ が $\sigma^\pi$ の $\mathrm{ST}$ における証明番号である」を意味する。$\sigma$ は、どんな自然数 $c$ に対してもその条件が成り立たない、と述べる算術の文である。
+
+### 補題37H
+
+> $\mathrm{ST}$ が無矛盾なら、$\sigma^\pi\notin\mathrm{ST}$ である。
+
+**$\mathrm{ST}$ が無矛盾であると仮定して、$\sigma^\pi\notin\mathrm{ST}$ を背理法で示す。**
+
+1. $\mathrm{ST}$ が無矛盾と仮定する。さらに $\sigma^\pi\in\mathrm{ST}$ と仮定し、その証明のゲーデル数を $k$ とする。
+2. $D$ の定義より $\langle r,r,k\rangle\in D$ である。$\delta$ は $D$ を表現するので、$A_E\vdash\delta(S^r0,S^r0,S^k0)$ である。
+3. よって $A_E\vdash\exists v_3\,\delta(S^r0,S^r0,v_3)$ である。$\sigma$ の定義から、これは $A_E\vdash\lnot\sigma$ を意味する。
+4. $\pi$ は $\mathrm{Cn}\,A_E$ の $\mathrm{ST}$ への翻訳なので、$(\lnot\sigma)^\pi=\lnot(\sigma^\pi)\in\mathrm{ST}$ である。
+5. $\sigma^\pi$ とその否定がともに $\mathrm{ST}$ に属し、無矛盾性に反する。よって $\sigma^\pi\notin\mathrm{ST}$ である。
+
+### 補題の証明を集合論の内部で形式化する
+
+$\operatorname{Cons}(\mathrm{ST})$ を、$\mathrm{ST}$ の無矛盾性を集合論の言語で形式化した文とする。証明を自然数で符号化し、「矛盾を導く証明番号が存在しない」と述べる。
+
+補題37Hの証明は、$\sigma^\pi$ の証明番号があれば、その証明から $\lnot(\sigma^\pi)$ の証明を作れて矛盾する、という議論だった。この証明の操作を $\mathrm{ST}$ 内で形式化し、「$\sigma^\pi$ の証明は存在しない」という結論を $\sigma^\pi$ 自身で表せるようにすると、次を得る。
+
+$$
+\mathrm{ST}\vdash
+\bigl(\operatorname{Cons}(\mathrm{ST})\to\sigma^\pi\bigr).
+$$
+
+本文は、この形式化が可能であるという説明を与え、証明操作の符号化や、それを $\mathrm{ST}$ 内で正当化する詳細は省略している。
+
+### 集合論に対する第二不完全性定理
+
+> $\mathrm{ST}$ が無矛盾なら、$\operatorname{Cons}(\mathrm{ST})\notin\mathrm{ST}$ である。
+
+**内部で形式化した含意と補題37Hを使って示す。**
+
+1. $\mathrm{ST}$ が無矛盾と仮定する。
+2. $\operatorname{Cons}(\mathrm{ST})\in\mathrm{ST}$ と仮定すると、上の含意と modus ponens により $\sigma^\pi\in\mathrm{ST}$ を得る。
+3. これは補題37Hに反する。よって $\operatorname{Cons}(\mathrm{ST})\notin\mathrm{ST}$ である。
+
+$\mathrm{ST}$ が矛盾していれば、どんな文も証明できるので $\operatorname{Cons}(\mathrm{ST})$ も証明できる。また、$\mathrm{ST}$ が無矛盾な場合、その部分理論からも $\operatorname{Cons}(\mathrm{ST})$ は証明できない。部分理論での証明は $\mathrm{ST}$ でも通るためである。
