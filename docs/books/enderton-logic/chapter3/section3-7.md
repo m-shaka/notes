@@ -8,11 +8,7 @@ sidebar_position: 7
 
 ### Enderton の方針
 
-Enderton は、ZF などの集合論の公理から証明できる文全体を $\mathrm{ST}$ とし、$\mathrm{ST}$ が無矛盾なら、与えられた文が $\mathrm{ST}$ の定理かどうかを判定するアルゴリズムは存在しないことを示す。
-
-使うのは、[Section 3.5](./section3-5.md) で示した「$A_E$ を含む無矛盾な算術の理論は決定不能」という結果（定理35C）である。算術の文 $\sigma$ を集合論の文 $\sigma^\pi$ に翻訳し、$\mathrm{ST}$ で証明できる翻訳に対応する元の算術の文を集める。これが集合論の算術部分 $\pi^{-1}[\mathrm{ST}]$ である。
-
-この算術部分が $A_E$ を含む無矛盾な理論なら、定理35Cにより決定不能である。一方、$\mathrm{ST}$ に判定器があれば、$\sigma$ を翻訳して $\sigma^\pi$ をその判定器にかけるだけで、算術部分への所属も判定できてしまう。そこで、自然数とその演算を集合で表し、$A_E$ の各公理の翻訳を $\mathrm{ST}$ で証明できるように $\pi$ を作る。
+集合論の公理の論理的帰結全体を $\mathrm{ST}$ とする。$\mathrm{Cn}\,A_E$ の $\mathrm{ST}$ への翻訳 $\pi$ を構成し、定理35Cの算術の決定不能性を集合論へ移す。定理37Dではさらに、翻訳を保証する有限集合 $\Phi\subseteq\mathrm{ST}$ と両立する理論 $T$ についても、$\sharp T$ が再帰的でないことを示す。
 
 ### Section 2.7 の復習
 
@@ -119,13 +115,60 @@ $$
 
 **(i)・(ii)・(iii)を仮定して、理論の翻訳の条件 $\mathrm{Cn}\,A_E\subseteq\pi^{-1}[\mathrm{ST}]$ を示す。**
 
+<details>
+<summary>補足・構造 $\pi\mathcal B$ と理論 $\pi^{-1}[T_1]$</summary>
+
+:::definition[翻訳から定まる構造]
+
+$\pi$ を言語 $L_0$ の理論 $T_1$ への翻訳とし、$\mathcal B$ を $T_1$ のモデルとする。$\mathcal B$ の台集合を $|\mathcal B|$ と書く。$L_0$ の構造 $\pi\mathcal B$ を次のように定める。
+
+- **台集合**は、$\mathcal B$ で $\pi_\forall$ を満たす元全体とする。
+  $$
+  |\pi\mathcal B|=\{a\in|\mathcal B|\mid \models_{\mathcal B}\pi_\forall[a]\}.
+  $$
+- **述語記号 $P$** は、その台集合の元について、$\mathcal B$ で $\pi_P$ を満たすとき、かつそのときに限り成り立つ関係とする。
+- **関数記号 $f$** は、その台集合の入力 $a_1,\ldots,a_n$ に対して、$\models_{\mathcal B}\pi_f[a_1,\ldots,a_n,b]$ を満たす唯一の元 $b$ を値とする。定数は入力が0個の場合である。
+
+翻訳の条件により、台集合は空でなく、各関数の値は台集合内に一意に定まる。したがって、$\pi$ と $\mathcal B$ を固定すれば $\pi\mathcal B$ は一意に定まる。今回の台集合は、$\mathcal B$ が「$\omega$ に属する」と判定する元全体である。
+
+:::
+
+:::definition[理論 $\pi^{-1}[T_1]$]
+
+$\operatorname{Mod}T_1$ は $T_1$ のモデル全体、$\mathrm{Th}\,\mathcal K$ は構造の集まり $\mathcal K$ のどの構造でも真な文全体を表す。次のように定める。
+
+$$
+\pi^{-1}[T_1]
+=\mathrm{Th}\{\pi\mathcal B\mid\mathcal B\in\operatorname{Mod}T_1\}.
+$$
+
+つまり、$T_1$ の各モデルから $\pi$ で得られるどの構造でも真な $L_0$ の文を集めた理論である。
+
+:::
+
+**補題27B**は、$L_0$ の論理式 $\alpha$ と、変数に $|\pi\mathcal B|$ の元を割り当てるどんな $s$ に対しても、次が成り立つことを述べる。
+
+$$
+\models_{\pi\mathcal B}\alpha[s]
+\quad\Longleftrightarrow\quad
+\models_{\mathcal B}\alpha^\pi[s].
+$$
+
+両辺で同じ $s$ を使う。$\alpha$ が文なら、その真偽は割り当てによらないので $[s]$ を省ける。これを $T_1$ の全モデルに適用すると、**系27C**により、文 $\alpha$ について次を得る。
+
+$$
+\alpha\in\pi^{-1}[T_1]\quad\Longleftrightarrow\quad\alpha^\pi\in T_1.
+$$
+
+</details>
+
 1. $\sigma\in\mathrm{Cn}\,A_E$ を満たす文 $\sigma$ を任意にとる。$\sigma\in\pi^{-1}[\mathrm{ST}]$ を示すため、$\mathrm{ST}$ のモデル $\mathcal B$ を任意にとる。
 2. (i)・(ii)より、$\pi$ は算術の言語の $\mathrm{ST}$ への翻訳なので、$\mathcal B$ から算術の構造 $\pi\mathcal B$ が定まる。
 3. $\pi\mathcal B$ が $A_E$ のモデルであることを示す。
    1. 公理 $\alpha\in A_E$ を任意にとる。
-   2. (iii)より $\alpha^\pi\in\mathrm{ST}$ なので、$\mathcal B\models\alpha^\pi$ である。
-   3. 補題27Bより、$\pi\mathcal B\models\alpha$ である。$\alpha$ は任意だったので、$\pi\mathcal B\models A_E$ である。
-4. $\sigma\in\mathrm{Cn}\,A_E$ は、$A_E$ のどのモデルでも $\sigma$ が真であることを意味する。よって3より、$\pi\mathcal B\models\sigma$ である。
+   2. (iii)より $\alpha^\pi\in\mathrm{ST}$ なので、$\models_{\mathcal B}\alpha^\pi$ である。
+   3. 補題27Bより、$\models_{\pi\mathcal B}\alpha$ である。$\alpha$ は任意だったので、$\pi\mathcal B$ は $A_E$ のモデルである。
+4. $\sigma\in\mathrm{Cn}\,A_E$ は、$A_E$ のどのモデルでも $\sigma$ が真であることを意味する。よって3より、$\models_{\pi\mathcal B}\sigma$ である。
 5. $\mathcal B$ は任意だったので、$\sigma$ は、$\mathrm{ST}$ のモデルから $\pi$ で得られるどの構造でも真である。これは $\pi^{-1}[\mathrm{ST}]$ の定義より、$\sigma\in\pi^{-1}[\mathrm{ST}]$ を意味する。
 6. $\sigma$ は任意だったので、$\mathrm{Cn}\,A_E\subseteq\pi^{-1}[\mathrm{ST}]$ である。したがって、$\pi$ は $\mathrm{Cn}\,A_E$ の $\mathrm{ST}$ への翻訳である。
 
@@ -134,6 +177,25 @@ $$
 ### 定理37D（集合論の強い決定不能性）
 
 > 集合論の言語の理論 $T$ について、$T\cup\mathrm{ST}$ が無矛盾なら、または少なくとも $T\cup\Phi$ が無矛盾なら、$T$ の文のゲーデル数の集合 $\sharp T$ は再帰的でない。
+
+<details>
+<summary>多対一帰着</summary>
+
+:::definition[多対一帰着（Many-one Reducibility）]
+
+集合 $A,B\subseteq\mathbb N$ について、どんな $n\in\mathbb N$ に対しても
+
+$$
+n\in A\quad\Longleftrightarrow\quad f(n)\in B
+$$
+
+を満たす全域再帰的関数 $f:\mathbb N\to\mathbb N$ が存在するとき、$A\le_m B$ と書き、**「$A$ は $B$ に多対一帰着可能」**と読む。添え字 $m$ は many-one を表す。
+
+$A$ への所属を調べる入力 $n$ を $f(n)$ に変換し、$B$ への所属判定に渡せるという関係である。異なる入力を同じ出力に送ることも許される。したがって、$A\le_m B$ で $B$ が再帰的なら $A$ も再帰的である。その対偶として、$A$ が再帰的でなければ $B$ も再帰的でない。
+
+:::
+
+</details>
 
 **算術の理論 $\Delta_0$ から $T$ への帰着を作り、$\sharp T$ が再帰的でないことを示す。**
 
@@ -172,9 +234,9 @@ $$
 
 ### 系37G
 
-> 等号と二項述語一つを持つ言語で、妥当な文全体は決定不能である。
+> 等号と二項述語一つを持つ言語で、恒真な文全体は決定不能である。
 
-$T=\mathrm{Cn}(\varnothing)$ とすれば、$T$ は妥当な文全体なので、無矛盾な $\Phi$ を使って定理37Dを適用できる。本文は無矛盾性を証明できるような $\Phi$ の具体的な構成を省略しており、この箇所を部分証明としている。
+$T=\mathrm{Cn}(\varnothing)$ とすれば、$T$ は恒真な文全体なので、無矛盾な $\Phi$ を使って定理37Dを適用できる。本文は無矛盾性を証明できるような $\Phi$ の具体的な構成を省略しており、この箇所を部分証明としている。
 
 最後に、$\mathrm{ST}$ が無矛盾なら、この $\pi$ は標準自然数で真な文全体 $\mathrm{Th}\,\mathfrak{N}$ の翻訳にはならない。$\pi^{-1}[\mathrm{ST}]$ は計算可能な翻訳と $\mathrm{ST}$ の証明探索を使って枚挙できる。もし完全な $\mathrm{Th}\,\mathfrak{N}$ を含めば、無矛盾性により両者は一致するが、Section 3.5 により $\mathrm{Th}\,\mathfrak{N}$ は計算可能に枚挙できない。
 
@@ -200,9 +262,9 @@ $$
 
 :::
 
-$a$ で式を指定し、その自由変数に $b$ の数詞を代入してから $\pi$ で翻訳する。$c$ は、その翻訳された文の証明を指定する。式への代入と翻訳は再帰的に実行でき、$\mathrm{ST}$ の公理は再帰的なので証明候補も検査できる。したがって $D$ は再帰的であり、$\mathrm{Cn}\,A_E$ で $D$ を表現する式 $\delta(v_1,v_2,v_3)$ が存在する。
+$a$ で式を指定し、その自由変数に $b$ のnumeralを代入してから $\pi$ で翻訳する。$c$ は、その翻訳された文の証明を指定する。式への代入と翻訳は再帰的に実行でき、$\mathrm{ST}$ の公理は再帰的なので証明候補も検査できる。したがって $D$ は再帰的であり、$\mathrm{Cn}\,A_E$ で $D$ を表現する式 $\delta(v_1,v_2,v_3)$ が存在する。
 
-次の式のゲーデル数を $r$ とし、その自由変数 $v_1$ に $r$ の数詞 $S^r0$ を代入した文を $\sigma$ とする。
+次の式のゲーデル数を $r$ とし、その自由変数 $v_1$ に $r$ のnumeral $S^r0$ を代入した文を $\sigma$ とする。
 
 $$
 \begin{aligned}
@@ -211,25 +273,25 @@ r&=\sharp\bigl(\forall v_3\,\lnot\delta(v_1,v_1,v_3)\bigr),\\
 \end{aligned}
 $$
 
-$D$ の第1引数に $r$ を入れると、代入される側の式が指定される。第2引数にも $r$ を入れると、その式から $\sigma$ が得られる。したがって $\langle r,r,c\rangle\in D$ は「$c$ が $\sigma^\pi$ の $\mathrm{ST}$ における証明番号である」を意味する。$\sigma$ は、どんな自然数 $c$ に対してもその条件が成り立たない、と述べる算術の文である。
+$D$ の第1引数に $r$ を入れると、代入される側の式が指定される。第2引数にも $r$ を入れると、その式から $\sigma$ が得られる。したがって $\langle r,r,c\rangle\in D$ は「$c$ が $\sigma^\pi$ の $\mathrm{ST}$ における証明のゲーデル数である」を意味する。$\sigma$ は、どんな自然数 $c$ に対してもその条件が成り立たない、と述べる算術の文である。
 
 ### 補題37H
 
 > $\mathrm{ST}$ が無矛盾なら、$\sigma^\pi\notin\mathrm{ST}$ である。
 
-**$\mathrm{ST}$ が無矛盾であると仮定して、$\sigma^\pi\notin\mathrm{ST}$ を背理法で示す。**
+**対偶「$\sigma^\pi\in\mathrm{ST}$ なら $\mathrm{ST}$ は矛盾する」を示す。**
 
-1. $\mathrm{ST}$ が無矛盾と仮定する。さらに $\sigma^\pi\in\mathrm{ST}$ と仮定し、その証明のゲーデル数を $k$ とする。
+1. $\sigma^\pi\in\mathrm{ST}$ と仮定し、その証明のゲーデル数を $k$ とする。
 2. $D$ の定義より $\langle r,r,k\rangle\in D$ である。$\delta$ は $D$ を表現するので、$A_E\vdash\delta(S^r0,S^r0,S^k0)$ である。
 3. よって $A_E\vdash\exists v_3\,\delta(S^r0,S^r0,v_3)$ である。$\sigma$ の定義から、これは $A_E\vdash\lnot\sigma$ を意味する。
 4. $\pi$ は $\mathrm{Cn}\,A_E$ の $\mathrm{ST}$ への翻訳なので、$(\lnot\sigma)^\pi=\lnot(\sigma^\pi)\in\mathrm{ST}$ である。
-5. $\sigma^\pi$ とその否定がともに $\mathrm{ST}$ に属し、無矛盾性に反する。よって $\sigma^\pi\notin\mathrm{ST}$ である。
+5. 仮定と4より、$\sigma^\pi$ とその否定がともに $\mathrm{ST}$ に属する。したがって $\mathrm{ST}$ は矛盾する。これで対偶が示された。
 
 ### 補題の証明を集合論の内部で形式化する
 
-$\operatorname{Cons}(\mathrm{ST})$ を、$\mathrm{ST}$ の無矛盾性を集合論の言語で形式化した文とする。証明を自然数で符号化し、「矛盾を導く証明番号が存在しない」と述べる。
+$\operatorname{Cons}(\mathrm{ST})$ を、$\mathrm{ST}$ の無矛盾性を集合論の言語で形式化した文とする。証明を自然数で符号化し、「矛盾を導く証明のゲーデル数が存在しない」と述べる。
 
-補題37Hの証明は、$\sigma^\pi$ の証明番号があれば、その証明から $\lnot(\sigma^\pi)$ の証明を作れて矛盾する、という議論だった。この証明の操作を $\mathrm{ST}$ 内で形式化し、「$\sigma^\pi$ の証明は存在しない」という結論を $\sigma^\pi$ 自身で表せるようにすると、次を得る。
+補題37Hの証明は、$\sigma^\pi$ の証明のゲーデル数があれば、その証明から $\lnot(\sigma^\pi)$ の証明を作れて矛盾する、という議論だった。この証明の操作を $\mathrm{ST}$ 内で形式化し、「$\sigma^\pi$ の証明は存在しない」という結論を $\sigma^\pi$ 自身で表せるようにすると、次を得る。
 
 $$
 \mathrm{ST}\vdash
@@ -245,7 +307,7 @@ $$
 **内部で形式化した含意と補題37Hを使って示す。**
 
 1. $\mathrm{ST}$ が無矛盾と仮定する。
-2. $\operatorname{Cons}(\mathrm{ST})\in\mathrm{ST}$ と仮定すると、上の含意と modus ponens により $\sigma^\pi\in\mathrm{ST}$ を得る。
+2. $\operatorname{Cons}(\mathrm{ST})\in\mathrm{ST}$ と仮定する。$(\operatorname{Cons}(\mathrm{ST})\to\sigma^\pi)\in\mathrm{ST}$ なので、modus ponens により $\sigma^\pi\in\mathrm{ST}$ を得る。
 3. これは補題37Hに反する。よって $\operatorname{Cons}(\mathrm{ST})\notin\mathrm{ST}$ である。
 
 $\mathrm{ST}$ が矛盾していれば、どんな文も証明できるので $\operatorname{Cons}(\mathrm{ST})$ も証明できる。また、$\mathrm{ST}$ が無矛盾な場合、その部分理論からも $\operatorname{Cons}(\mathrm{ST})$ は証明できない。部分理論での証明は $\mathrm{ST}$ でも通るためである。
